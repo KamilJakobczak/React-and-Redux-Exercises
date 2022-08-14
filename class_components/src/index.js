@@ -24,7 +24,7 @@ class App extends React.Component {
     );
   }
 
-  render() {
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat && !this.state.lng) {
       return <div>Error:{this.state.errorMessage}</div>;
     }
@@ -33,6 +33,10 @@ class App extends React.Component {
       return <SeasonDisplay lat={this.state.lat} lng={this.state.lng} />;
     }
     return <Loader message='Please accept location request' />;
+  }
+
+  render() {
+    return <div>{this.renderContent()}</div>;
   }
 }
 
