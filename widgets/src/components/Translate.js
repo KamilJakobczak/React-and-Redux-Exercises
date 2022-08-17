@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Dropdown from './Dropdown';
-import KEY from '../KEY';
+
 import Convert from './Convert';
 
 const options = [
