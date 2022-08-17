@@ -3,10 +3,24 @@ import axios from 'axios';
 
 const Search = () => {
   const [input, setInput] = useState('programming');
+  const [debouncedInput, setDebouncedInput] = useState(input);
   const [results, setResults] = useState([]);
-  console.log(results);
 
   useEffect(() => {
+    const timerId = setTimeout(() => {
+      // console.log(`za 1s ustawię debouncedInput na: ${input}`);
+      setDebouncedInput(input);
+    }, 1000);
+    return () => {
+      // console.log(
+      //   'Czyszczę timeout za każdy razem jak input się zmienia'
+      // );
+      clearTimeout(timerId);
+    };
+  }, [input]);
+
+  useEffect(() => {
+    // console.log('Fetchuję dane z wiki api');
     const searchWiki = async () => {
       const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
         params: {
@@ -14,26 +28,18 @@ const Search = () => {
           list: 'search',
           origin: '*',
           format: 'json',
-          srsearch: input,
+          srsearch: debouncedInput,
         },
       });
+
       setResults(data.query.search);
+      // console.log('zapisuję zwrócone dane w results');
     };
-
-    if (input && !results.length) {
-      searchWiki();
-    } else {
-      const timeoutId = setTimeout(() => {
-        if (input) {
-          searchWiki();
-        }
-      }, 500);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [input]);
+    // console.log(
+    //   'wywołuję fetchowanie danych za każdym razem jak zmieni się debouncedInput'
+    // );
+    searchWiki();
+  }, [debouncedInput]);
 
   const renderedResults = results.map(result => {
     return (
