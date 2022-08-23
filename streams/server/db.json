@@ -4,6 +4,17 @@
       "title": "My Stream",
       "description": "The greatest stream there ever was",
       "id": 1
+    },
+    {
+      "title": "Other stream",
+      "description": "The greatest stream there ever was. Again!",
+      "id": 2
+    },
+    {
+      "title": "Jamar's stream",
+      "description": "The best stream ever!",
+      "userId": "114098106148971982195",
+      "id": 3
     }
   ]
 }
