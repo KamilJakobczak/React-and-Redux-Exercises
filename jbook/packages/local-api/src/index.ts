@@ -22,7 +22,9 @@ const serve = (
       })
     );
   } else {
-    const packagePath = require.resolve('local-client/build/index.html');
+    const packagePath = require.resolve(
+      '@jamar_cp/local_client/build/index.html'
+    );
     app.use(express.static(path.dirname(packagePath)));
   }
 
